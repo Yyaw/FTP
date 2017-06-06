@@ -39,16 +39,16 @@ int DealConnect::deal(int server_fd) {
         perror("In DealConnect.cpp: accept error");
     else{
         pid = fork();
-        if (pid > 0){
+        if (pid == 0){
             close(server_fd);
             Connection *connection = new Connection(client, this->root);
             connection->start();
             rmPid(pid);
             exit(9);
-        }else if (pid == 0){
+        }else if (pid > 0){
             close(client);
             addPid(pid);
-            exit(0);
+//            exit(0);
         }else {
             perror("DealConnect::deal : Create child process error");
             exit(0);

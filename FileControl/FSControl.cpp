@@ -114,6 +114,8 @@ int FSControl::createfile(char *filepath, char *from) {
 
 int FSControl::ls(char *path, char **&result) {
     path = getFile(path);
+    if (path[strlen(path)-1] != '/')
+        strcat(path, "/");
     if (!isDir(path)){
         result = nullptr;
         return 0;
@@ -132,7 +134,7 @@ int FSControl::ls(char *path, char **&result) {
     int index = 0;
     while((entry = readdir(dir)) != NULL){
         char *tmp_dir = new char[256];
-        strcpy(tmp_dir, tmp);
+//        strcpy(tmp_dir, tmp);
         char *tmpdir = new char[256];
         strcpy(tmpdir, getFile(path));
         lstat(strcat(tmpdir, entry->d_name), &statbuf);

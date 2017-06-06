@@ -6,4 +6,5 @@ int main(int argc, char **argv)
     server.init(10, 8888, SockType::IPV4, FtpType::MULTIPROCESS, "/home/zichaoyang/Code");
     server.start();
     server.end();
+    return 0;
 }

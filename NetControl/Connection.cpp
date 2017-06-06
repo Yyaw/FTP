@@ -168,7 +168,8 @@ void Connection::login(char **msg) {
 }
 
 void Connection::pwd() {
-    char *root = fsControl->getRoot();
+    char root[256];
+    strcpy(root, fsControl->getRoot());
     if (root == NULL){
         sendStr(PWDERROR);
     }
@@ -189,7 +190,7 @@ void Connection::ls(char *path) {
 
     char** msg;
     int index = fsControl->ls(path, msg);
-    if (index == 0) {
+    if (index == 0 && msg == nullptr) {
         sendStr(LSERROR);
     }
     char *result = new char[1024 * 8];
